@@ -9,12 +9,14 @@ variable "virtual_network_name"{
     description = "The name of the subnet being created"
 
 }
-variable "address_spaces"{
-    type = map(list(string))
+variable "address_prefix"{
+    type = string
     description = "The address space of the subnetk being created"
 }
 variable "resource_group_name"{
     type = string
     description = ""
-
+}
+variable "subnet_name"{
+    type = string
 }
