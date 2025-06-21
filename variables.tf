@@ -4,6 +4,3 @@ variable "location" {
   default     = "eastus"
 }
 
-# variable "departments" {
-#   default = ["HR", "IT", "Accounts", "Finance", "Marketing"]
-# }  

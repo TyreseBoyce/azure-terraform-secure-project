@@ -1,5 +1,9 @@
 locals {
-  environment = terraform.workspace
+  departments = ["hr", "it", "accounts", "finance", "marketing"]
+  subnets = {
+    for i, dept in local.departments :
+    "${terraform.workspace}-subnet-${dept}" => cidrsubnet(module.vnets.address_spaces[0], 8, i)
+  }
 }
 resource "azurerm_resource_group" "main" {
   name     = "rg-${terraform.workspace}-core"
@@ -15,17 +19,10 @@ module "vnets" {
   }
   depends_on = [azurerm_resource_group.main] #This ensures the vnet is created only after the resource group.
 }
-locals {
-  departments = ["HR", "IT", "Accounts", "Finance", "Marketing"]
-  subnets = {
-    for i, dept in local.departments :
-    "subnet-${dept}" => cidrsubnet(module.vnets.address_spaces[0], 8, i)
-  }
-}
 module "subnets" {
-  source               = "./modules/subnet-module"
-  for_each             = local.subnets
-  subnet_name          = "${terraform.workspace}-subnet"
+  source      = "./modules/subnet-module"
+  for_each    = local.subnets
+  subnet_name = each.key
   virtual_network_name = "${terraform.workspace}-vnet"
   resource_group_name  = "rg-${terraform.workspace}-core"
   address_prefix       = each.value
