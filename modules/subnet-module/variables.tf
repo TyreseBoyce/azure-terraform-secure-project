@@ -6,17 +6,18 @@ variable "location"{
 }
 variable "virtual_network_name"{
     type = string
-    description = "The name of the subnet being created"
+    description = "The name of the virtual network the subnet is being created in"
 
 }
 variable "address_prefix"{
     type = string
-    description = "The address space of the subnetk being created"
+    description = "The address space of the subnet being created"
 }
 variable "resource_group_name"{
     type = string
-    description = ""
+    description = "The name of the resource group the subnet is being created in"
 }
 variable "subnet_name"{
     type = string
+    description = "The name of the subnet being created"
 }

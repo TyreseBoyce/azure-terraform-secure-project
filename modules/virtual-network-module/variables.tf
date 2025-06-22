@@ -4,7 +4,7 @@ variable "location"{
     default = "eastus"
 
 }
-variable "vnet_name"{
+variable "virtual_network_name"{
     type = string
     description = "The name of the vnet being created"
 
@@ -15,6 +15,6 @@ variable "address_spaces"{
 }
 variable "resource_group_name"{
     type = string
-    description = ""
+    description = "The name of the resource group the vnet is being created in"
 
 }
