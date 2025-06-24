@@ -1,6 +1,6 @@
 variable "location"{
     type = string
-    description = "The location of the resourse being created"
+    description = "The location of the resource being created"
     default = "eastus"
 
 }

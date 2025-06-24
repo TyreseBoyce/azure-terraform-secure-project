@@ -12,7 +12,7 @@ resource "azurerm_resource_group" "main" {
 module "vnets" {
   source               = "./modules/virtual-network-module"
   virtual_network_name = "${terraform.workspace}-vnet"
-  resource_group_name  = "rg-${terraform.workspace}-core"
+  resource_group_name  = azurerm_resource_group.main.name
   address_spaces = {
     dev  = ["10.0.0.0/16"]
     prod = ["10.1.0.0/16"]
@@ -24,7 +24,7 @@ module "subnets" {
   for_each             = local.subnets # This iterates over the subnets map to create a subnet for each department
   subnet_name          = each.key
   virtual_network_name = "${terraform.workspace}-vnet"
-  resource_group_name  = "rg-${terraform.workspace}-core"
+  resource_group_name  = azurerm_resource_group.main.name
   address_prefix       = each.value
   depends_on           = [module.vnets]
 }
