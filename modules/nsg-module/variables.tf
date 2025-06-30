@@ -17,24 +17,22 @@ variable "subnet_id" {
     type = string
     description = "The ID of the subnet to associate with the NSG"
 }
-variable "security_rules" {
-    type = list(object({
-        name                       = string
-        priority                   = number
-        direction                  = string
-        access                     = string
-        protocol                   = string
-        source_port_range          = string
-        destination_port_range     = string
-        source_address_prefix      = string
-        destination_address_prefix = string
+variable "rules" {
+    type = map(object({
+        priority                    = number
+        direction                   = string
+        access                      = string
+        protocol                    = string
+        source_port_range           = string
+        destination_port_range      = string
+        source_address_prefix       = string
+        destination_address_prefix  = string
     }))
-    description = "List of security rules to apply to the NSG"
-    default     = []
+    description = "A map of network security rules to apply to the NSG"
+    default     = {}
 }
 variable "network_security_group_id" {
     type = string
     description = "The ID of the network security group to associate with the subnet"
     default     = ""
-  
 }
