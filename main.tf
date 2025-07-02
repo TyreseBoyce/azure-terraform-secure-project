@@ -31,10 +31,10 @@ module "subnets" {
 module "nsgs" {
   for_each = var.subnet_rules
 
-  source         = "./modules/nsg-module"
-  nsg_name       = "${terraform.workspace}-${each.value.nsg_name}"
-  location       = var.location
+  source              = "./modules/nsg-module"
+  nsg_name            = "${terraform.workspace}-${each.value.nsg_name}"
+  location            = var.location
   resource_group_name = azurerm_resource_group.main.name
-  subnet_id      = module.subnets["${terraform.workspace}-subnet-${each.key}"].id 
-  rules          = each.value.rules
+  subnet_id           = module.subnets["${terraform.workspace}-subnet-${each.key}"].id
+  rules               = each.value.rules
 }
