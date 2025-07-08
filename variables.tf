@@ -18,3 +18,21 @@ variable "subnet_rules" {
     }))
   }))
 }
+variable "admin_username" {
+  type        = string
+  description = "The admin username for the virtual machine"
+}
+variable "admin_password" {
+  type        = string
+  description = "The admin password for the virtual machine"
+  sensitive   = true
+}
+variable "computer_name" {
+  type        = string
+  description = "The computer name for the virtual machine"
+}
+variable "size" {
+  type        = string
+  description = "The size of the virtual machine"
+  default     = "Standard_B1s" // Default VM size 
+}

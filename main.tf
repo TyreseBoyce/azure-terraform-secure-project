@@ -1,4 +1,8 @@
 locals {
+  vm_departments = [
+    "${terraform.workspace}-subnet-it",
+    "${terraform.workspace}-subnet-hr"
+  ]
   departments = ["hr", "it", "accounts", "finance", "marketing"]
   subnets = {
     for i, dept in local.departments :                                                          # This creates a subnet for each department
@@ -37,4 +41,18 @@ module "nsgs" {
   resource_group_name = azurerm_resource_group.main.name
   subnet_id           = module.subnets["${terraform.workspace}-subnet-${each.key}"].id
   rules               = each.value.rules
+}
+module "virtual_machine" {
+  source               = "./modules/virtual-machine-module"
+  for_each             = toset(local.vm_departments) # This creates a VM for each department in the vm_departments list
+  virtual_machine_name = "${each.key}-vm"
+  admin_password       = var.admin_password
+  admin_username       = var.admin_username
+  computer_name        = var.computer_name
+  size                 = var.size
+  location             = var.location
+  resource_group_name  = azurerm_resource_group.main.name
+  nic                  = "${each.key}-nic"
+  subnet_id            = module.subnets[each.key].id
+  depends_on           = [module.nsgs]
 }
