@@ -5,8 +5,8 @@ locals {
   ]
   departments = ["hr", "it", "accounts", "finance", "marketing"]
   subnets = {
-    for i, dept in local.departments :                                                          # This creates a subnet for each department
-    "${terraform.workspace}-subnet-${dept}" => cidrsubnet(module.vnets.address_spaces[0], 8, i) # This calculates a unique subnet CIDR for each department
+    for i, dept in local.departments :                                                          # Creates a subnet for each department
+    "${terraform.workspace}-subnet-${dept}" => cidrsubnet(module.vnets.address_spaces[0], 8, i) # Calculates a unique subnet CIDR for each department
   }
 }
 resource "azurerm_resource_group" "main" {
@@ -21,7 +21,7 @@ module "vnets" {
     dev  = ["10.0.0.0/16"]
     prod = ["10.1.0.0/16"]
   }
-  depends_on = [azurerm_resource_group.main] #This ensures the vnet is created only after the resource group.
+  depends_on = [azurerm_resource_group.main] #Ensures the vnet is created only after the resource group.
 }
 module "subnets" {
   source               = "./modules/subnet-module"
@@ -56,17 +56,10 @@ module "virtual_machine" {
   subnet_id            = module.subnets[each.key].id
   depends_on           = [module.nsgs]
 }
-# module "users" {
-#   source = "./modules/user-module"
-#   for_each = var.users
-#   user_principal_name = each.value.user_principal_name
-#   display_name        = each.value.display_name
-#   password            = each.value.password
-# }
-
-resource "azuread_user" "example" {
-  user_principal_name = "jdoe@tyreseboycehotmail.onmicrosoft.com"
-  display_name        = "J. Doe"
-  mail_nickname       = "jdoe"
-  password            = "SecretP@sswd99!"
+module "users" {
+  source = "./modules/user-module"
+  for_each = var.users
+  user_principal_name = each.value.user_principal_name
+  display_name        = each.value.display_name
+  password            = each.value.password
 }
