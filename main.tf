@@ -21,11 +21,11 @@ module "vnets" {
     dev  = ["10.0.0.0/16"]
     prod = ["10.1.0.0/16"]
   }
-  depends_on = [azurerm_resource_group.main] #Ensures the vnet is created only after the resource group.
+  depends_on = [azurerm_resource_group.main] # Ensures the vnet is created only after the resource group.
 }
 module "subnets" {
   source               = "./modules/subnet-module"
-  for_each             = local.subnets # This iterates over the subnets map to create a subnet for each department
+  for_each             = local.subnets # Iterates over the subnets map to create a subnet for each department
   subnet_name          = each.key
   virtual_network_name = "${terraform.workspace}-vnet"
   resource_group_name  = azurerm_resource_group.main.name
@@ -44,7 +44,7 @@ module "nsgs" {
 }
 module "virtual_machine" {
   source               = "./modules/virtual-machine-module"
-  for_each             = toset(local.vm_departments) # This creates a VM for each department in the vm_departments list
+  for_each             = toset(local.vm_departments) # Creates a VM for each department in the vm_departments list
   virtual_machine_name = "${each.key}-vm"
   admin_password       = var.admin_password
   admin_username       = var.admin_username
