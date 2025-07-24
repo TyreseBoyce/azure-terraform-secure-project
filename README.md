@@ -31,7 +31,11 @@ The infrastructure is designed for a small organization with the following struc
 This project uses **GitHub Actions** to automate infrastructure deployment on every `git push` to the repository.
 
 - ⚙️ Automatically runs `terraform init`, `terraform fmt`, `terraform validate`, `terraform plan`, and `terraform apply -auto-apply` on **`git push` events**
-- 🛡️ GitHub Secrets securely store Azure credentials (ARM_CLIENT_ID, ARM_CLIENT_SECRET, ARM_TENANT_ID, ARM_SUBSCRIPTION_ID)
+- 🛡️ **GitHub Secrets** securely store Azure credentials:
+  - `ARM_CLIENT_ID`
+  - `ARM_CLIENT_SECRET`
+  - `ARM_TENANT_ID`
+  - `ARM_SUBSCRIPTION_ID`
 
 ---
 
