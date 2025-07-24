@@ -56,10 +56,10 @@ module "virtual_machine" {
   subnet_id            = module.subnets[each.key].id
   depends_on           = [module.nsgs]
 }
-# module "users" {
-#   source              = "./modules/user-module"
-#   for_each            = var.users
-#   user_principal_name = each.value.user_principal_name
-#   display_name        = each.value.display_name
-#   password            = each.value.password
-# }
+module "users" {
+  source              = "./modules/user-module"
+  for_each            = var.users
+  user_principal_name = each.value.user_principal_name
+  display_name        = each.value.display_name
+  password            = each.value.password
+}
