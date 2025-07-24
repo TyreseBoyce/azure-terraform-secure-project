@@ -42,6 +42,5 @@ variable "users" {
     display_name        = string
     password            = string
   }))
-  sensitive = true
   description = "Map of users to be created with their principal name, display name, and password"
 }
