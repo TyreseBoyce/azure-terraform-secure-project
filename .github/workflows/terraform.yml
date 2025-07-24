@@ -37,3 +37,12 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false
+      - name: Create terraform.tfvars file
+        run: |
+          cat <<EOF > terraform.tfvars
+          subnet_rules = ${{ secrets.SUBNET_RULES }}
+          admin_username = "${{ secrets.ADMIN_USERNAME }}"
+          admin_password = "${{ secrets.ADMIN_PASSWORD }}"
+          computer_name = "${{ secrets.COMPUTER_NAME }}"
+          users = "${{ secrets.USERS }}"
+          EOF
