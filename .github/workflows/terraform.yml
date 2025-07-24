@@ -3,7 +3,7 @@ name: Terraform CI/CD
 on:
   push:
     branches:
-      - main
+      - actions-workflow
   workflow_dispatch:
 
 jobs:
@@ -33,7 +33,6 @@ jobs:
           admin_username = "${{ secrets.ADMIN_USERNAME }}"
           admin_password = "${{ secrets.ADMIN_PASSWORD }}"
           computer_name = "${{ secrets.COMPUTER_NAME }}"
-          users = "${{ secrets.USERS }}"
           EOF
 
       - name: Terraform Init
