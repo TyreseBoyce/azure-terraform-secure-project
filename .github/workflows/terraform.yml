@@ -29,11 +29,15 @@ jobs:
       - name: Create terraform.tfvars file
         run: |
           cat <<EOF > terraform.tfvars
-          subnet_rules = ${{ secrets.SUBNET_RULES }}
+          subnet_rules =  <<EOT
+           ${{ secrets.SUBNET_RULES }}
+           EOT
           admin_username = "${{ secrets.ADMIN_USERNAME }}"
           admin_password = "${{ secrets.ADMIN_PASSWORD }}"
           computer_name = "${{ secrets.COMPUTER_NAME }}"
-          users = "${{ secrets.USERS }}"
+          users = <<EOT 
+          "${{ secrets.USERS }}"
+          EOT
           EOF
 
       - name: Terraform Init
