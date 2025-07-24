@@ -25,18 +25,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.8.0
-
-      - name: Terraform Format Check
-        run: terraform fmt
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Validate
-        run: terraform validate
-
-      - name: Terraform Apply
-        run: terraform apply -var-file="terraform.tfvars" -auto-approve -input=false
+      
       - name: Create terraform.tfvars file
         run: |
           cat <<EOF > terraform.tfvars
@@ -46,3 +35,16 @@ jobs:
           computer_name = "${{ secrets.COMPUTER_NAME }}"
           users = "${{ secrets.USERS }}"
           EOF
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Apply
+        run: terraform apply -var-file="terraform.tfvars" -auto-approve -input=false
+     
