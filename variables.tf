@@ -36,11 +36,11 @@ variable "size" {
   description = "The size of the virtual machine"
   default     = "Standard_B1s" // Default VM size 
 }
-variable "users" {
-  type = map(object({
-    user_principal_name = string
-    display_name        = string
-    password            = string
-  }))
-  description = "Map of users to be created with their principal name, display name, and password"
-}
+# variable "users" {
+#   type = map(object({
+#     user_principal_name = string
+#     display_name        = string
+#     password            = string
+#   }))
+#   description = "Map of users to be created with their principal name, display name, and password"
+# }
