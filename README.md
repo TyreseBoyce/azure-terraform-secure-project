@@ -1,6 +1,6 @@
 # Terraform Project: Deploy a Secure, Scalable Azure Environment
 
-This project uses **Terraform** to provision a secure and scalable Azure environment tailored for a small organization. It incorporates key principles of **Zero Trust**, **least privilege**, and **infrastructure as code** to ensure proper network segmentation, access control, and environment separation.
+This project uses **Terraform** to provision a secure and scalable Azure environment tailored for a small organization. It incorporates key principles of **Zero Trust**, **least privilege**, **infrastructure as code** and **CI/CD** to ensure proper network segmentation, access control, and environment separation.
 
 ---
 
